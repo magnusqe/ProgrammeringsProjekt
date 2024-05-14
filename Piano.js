@@ -1,4 +1,4 @@
-class keys
+class Piano
 {
   constructor (keysX,keysY,keysSize)
   {
@@ -18,7 +18,7 @@ class keys
 
     }
 
-    Piano()
+    VisualKeys()
     {
         this.C() 
         this.D()

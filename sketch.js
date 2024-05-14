@@ -21,6 +21,8 @@ function setup()
 
   cnv.mousePressed(Playsound);
 
+  keyboard = new Piano(5,5,1);
+
 }
 
 function draw() 
