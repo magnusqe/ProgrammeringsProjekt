@@ -1,7 +1,6 @@
 class keys
 {
-
-    constructor ()
+  constructor (keysX,keysY,keysSize)
   {
 
         this.bkwidth  = 11;
@@ -10,10 +9,10 @@ class keys
         this.wkwidth  = 22;
         this.wkheight = 100;
    
-        this.keysX = 10
-        this.keysY = 10
+        this.keysX = keysX
+        this.keysY = keysY
    
-        this.keysSize = 1.5
+        this.keysSize = keysSize
 
 
 

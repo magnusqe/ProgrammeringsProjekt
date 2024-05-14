@@ -2,8 +2,10 @@ let sound, ampSlider;
 
 function preload()
 {
-  soundFormats('mp3', 'ogg')
+  
+  soundFormats('mp3', 'ogg');
   vineboom = loadSound('assets/vineboom.mp3')
+  
 }
 
 function setup() 
@@ -25,9 +27,12 @@ function draw()
 {
   background(220);
 
+  keyboard.VisualKeys();
+
   sound.InputModifications(ampSlider.value());
   sound.StandardSinusVisual();
   sound.SoundFileVisual();
+
 }
 
 function Playsound()
