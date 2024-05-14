@@ -1,4 +1,4 @@
-let sound;
+let sound, ampSlider;
 
 function preload()
 {
@@ -8,18 +8,31 @@ function preload()
 
 function setup() 
 {
-  cnv = createCanvas(400, 400);
+  cnv = createCanvas(800, 800);
   sound = new VisualSound(vineboom, 0, 0 ,0);
 
-  cnv.mousePressed(canvasPressed);
+  ampSlider = createSlider(0, 1, 0.5, 0.1);
+  ampSlider.position(10, 10);
+  ampSlider.style('width', '100px');
+  ampSlider.style('height', '300px');
+  ampSlider.style('transform', 'rotate(270deg)');
+
+  cnv.mousePressed(Playsound);
+
 }
 
 function draw() 
 {
   background(220);
+
+  sound.InputModifications(ampSlider.value());
+  sound.StandardSinusVisual();
+  sound.SoundFileVisual();
 }
 
-function canvasPressed()
+function Playsound()
 {
-  sound.play();
+  vineboom.setVolume(ampSlider.value());
+  vineboom.play();
+  console.log(vineboom.getLevel());
 }

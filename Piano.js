@@ -1,19 +1,3 @@
-    
-
-let keyboard;
-
-function setup() {
-  createCanvas(400, 400);
-  keyboard = new keys();
-}
-
-function draw() {
-  background(220);
-  
-  keyboard.Piano();
-}
-
-
 class keys
 {
 
