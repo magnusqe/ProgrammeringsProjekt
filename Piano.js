@@ -22,7 +22,7 @@ class Piano
       }
     }
 
-    VisualKeys(amp, octave = 5)
+    VisualKeys(amp, octave)
     {
       this.amp = amp;
       this.octave = octave;
@@ -48,8 +48,9 @@ class Piano
       if (keyIsDown(90) === true) 
       {
         fill(220,100,100);
-        this.keyArray[0].freq(16.35 * (this.octave * 2))
+        this.keyArray[0].freq(16.35 * pow(2, this.octave))
         this.keyArray[0].amp(this.amp, 0.2);
+        console.log(16.35 * pow(2, this.octave));
       }
       else 
       {
@@ -65,7 +66,7 @@ class Piano
       if (keyIsDown(88) === true) 
       {
         fill(240,150,20);
-        this.keyArray[1].freq(17.32 * (this.octave * 2));
+        this.keyArray[1].freq(17.32 * pow(2, this.octave));
         this.keyArray[1].amp(this.amp, 0.2);
       }   
       else 
@@ -82,7 +83,7 @@ class Piano
       if (keyIsDown(67) === true) 
       {
         fill(255,245,0);
-        this.keyArray[2].freq(20.60 * (this.octave * 2));
+        this.keyArray[2].freq(20.60 * pow(2, this.octave));
         this.keyArray[2].amp(this.amp, 0.2);
       } 
       else 
@@ -99,7 +100,7 @@ class Piano
       if (keyIsDown(86) === true) 
       {
         fill(100,230,100);
-        this.keyArray[3].freq(21.83 * (this.octave * 2));
+        this.keyArray[3].freq(21.83 * pow(2, this.octave));
         this.keyArray[3].amp(this.amp, 0.2);
       } 
       else 
@@ -116,7 +117,7 @@ class Piano
       if (keyIsDown(66) === true) 
       {
         fill(100,100,230);
-        this.keyArray[4].freq(24.50 * (this.octave * 2));
+        this.keyArray[4].freq(24.50 * pow(2, this.octave));
         this.keyArray[4].amp(this.amp, 0.2);
       } 
       else 
@@ -133,7 +134,7 @@ class Piano
       if (keyIsDown(78) === true) 
       {
         fill(127,0,230);
-        this.keyArray[5].freq(27.50 * (this.octave * 2));
+        this.keyArray[5].freq(27.50 * pow(2, this.octave));
         this.keyArray[5].amp(this.amp, 0.2);
       }
       else 
@@ -150,7 +151,7 @@ class Piano
       if (keyIsDown(77) === true) 
       {
         fill(180,89,180);
-        this.keyArray[6].freq(30.87 * (this.octave * 2));
+        this.keyArray[6].freq(30.87 * pow(2, this.octave));
         this.keyArray[6].amp(this.amp, 0.2);
       }
       else 
@@ -167,7 +168,7 @@ class Piano
       if (keyIsDown(83) === true) 
       {
         fill(255,100,100);
-        this.keyArray[7].freq(17.32 * (this.octave * 2));
+        this.keyArray[7].freq(17.32 * pow(2, this.octave));
         this.keyArray[7].amp(this.amp, 0.2);
       }
       else 
@@ -184,7 +185,7 @@ class Piano
       if (keyIsDown(68) === true) 
       {
         fill(247,159,27);
-        this.keyArray[8].freq(19.45 * (this.octave * 2));
+        this.keyArray[8].freq(19.45 * pow(2, this.octave));
         this.keyArray[8].amp(this.amp, 0.2);
       }
       else 
@@ -201,7 +202,7 @@ class Piano
       if (keyIsDown(71) === true) 
       {
         fill(100,255,100);
-        this.keyArray[9].freq(23.12 * (this.octave * 2));
+        this.keyArray[9].freq(23.12 * pow(2, this.octave));
         this.keyArray[9].amp(this.amp, 0.2);
       }
       else 
@@ -218,7 +219,7 @@ class Piano
       if (keyIsDown(72) === true) 
       {
         fill(100,100,255);
-        this.keyArray[10].freq(25.96 * (this.octave * 2));
+        this.keyArray[10].freq(25.96 * pow(2, this.octave));
         this.keyArray[10].amp(this.amp, 0.2);
       }
       else 
@@ -235,7 +236,7 @@ class Piano
       if (keyIsDown(74) === true) 
       {
         fill(127,0,255);
-        this.keyArray[11].freq(29.14 * (this.octave * 2));
+        this.keyArray[11].freq(29.14 * pow(2, this.octave));
         this.keyArray[11].amp(this.amp, 0.2);
       }
       else 

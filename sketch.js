@@ -9,8 +9,11 @@ function preload()
 function setup() 
 {
   cnv = createCanvas(800, 800);
+
   soundVisual = new VisualSound(vineboom, 0, 0 ,0);
+
   keyboard = new Piano(5,5,1);
+
   musicNote = new p5.Oscillator(100, 'sine');
   musicNote.start();
   musicNote.amp(0.0);
@@ -25,7 +28,7 @@ function setup()
   ampPianoSlider.size(100, 50);
   ampPianoSlider.style('transform', 'rotate(270deg)');
 
-  octavePianoSlider = createSlider(1, 12, 6, 1);
+  octavePianoSlider = createSlider(0, 8, 5, 1);
   octavePianoSlider.position(500, 110);
   octavePianoSlider.size(100, 50);
 
