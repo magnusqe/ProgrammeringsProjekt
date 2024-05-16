@@ -1,6 +1,6 @@
 class Piano
 {
-  constructor (keysX, keysY, keysSize)
+  constructor (keysX, keysY, keysSize, waveform)
   {
 
       this.bkwidth  = 11;
@@ -14,9 +14,11 @@ class Piano
 
       this.keyArray = [];
 
+      this.waveform = str(waveform);
+
       for(let i = 0; i < 12; i++)
       {
-        this.keyArray.push(new p5.Oscillator('sine'))
+        this.keyArray.push(new p5.Oscillator(this.waveform))
         this.keyArray[i].start();
         this.keyArray[i].amp(0.0, 0.2);
       }
@@ -50,7 +52,6 @@ class Piano
         fill(220,100,100);
         this.keyArray[0].freq(16.35 * pow(2, this.octave))
         this.keyArray[0].amp(this.amp, 0.2);
-        console.log(16.35 * pow(2, this.octave));
       }
       else 
       {
