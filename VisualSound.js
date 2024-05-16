@@ -6,12 +6,14 @@ class VisualSound
         this.tone;
         this.octave;
         this.amp;
-        this.peaks = this.soundFile.getPeaks(250);
+        this.peaks = this.soundFile.getPeaks(256);
         
         this.lastSoundX = 0;
         this.lastSoundY = this.peaks[0];
         this.lastSinX = 0;
         this.lastSinY = sin(0);
+        this.lastSinX = 0;
+        this.lastSinY = 0;
     }
 
     InputModifications(amp, tone, octave)
@@ -45,5 +47,32 @@ class VisualSound
 
         this.lastSinX = 0;
         this.lastSinY = (sin(0 * 0.1) * 20 * this.amp) + (height / 3);
+    }
+
+    StandardTriangleVisual()
+    {
+        let coefficient = 1;
+        
+        for(let i = 0; i <= this.peaks.length; i = i + 0.1)
+        {
+            if(i == 0 || i == 32 || i == 96 || i == 160 || i == 224)
+            {
+                coefficient = coefficient * -1;
+            } 
+            else{
+            }
+            if(i == 64 || i == 128 || i == 192 || i == 256)
+            {
+                coefficient = coefficient * -1;
+            } 
+            else{
+            }
+            line(this.lastTriX, this.lastTriY, i, (i * this.amp * coefficient) + (height / 1.5));
+            this.lastTriX = i;
+            this.lastTriY = (i * this.amp * coefficient) + (height / 1.5);
+        }
+
+        this.lastTriX = 0;
+        this.lastTriY = (0 * this.amp * coefficient) + (height / 1.5);
     }
 }

@@ -40,6 +40,7 @@ function draw()
   soundVisual.InputModifications(ampImpSoundSlider.value());
   soundVisual.StandardSinusVisual();
   soundVisual.SoundFileVisual();
+  soundVisual.StandardTriangleVisual();
 
 }
 
