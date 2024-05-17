@@ -55,18 +55,6 @@ class VisualSound
         
         for(let i = 0; i <= this.peaks.length; i = i + 0.1)
         {
-            if(i == 0 || i == 32 || i == 96 || i == 160 || i == 224)
-            {
-                coefficient = coefficient * -1;
-            } 
-            else{
-            }
-            if(i == 64 || i == 128 || i == 192 || i == 256)
-            {
-                coefficient = coefficient * -1;
-            } 
-            else{
-            }
             line(this.lastTriX, this.lastTriY, i, (i * this.amp * coefficient) + (height / 1.5));
             this.lastTriX = i;
             this.lastTriY = (i * this.amp * coefficient) + (height / 1.5);

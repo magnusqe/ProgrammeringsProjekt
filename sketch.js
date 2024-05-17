@@ -12,7 +12,7 @@ function setup()
 
   soundVisual = new VisualSound(vineboom, 0, 0 ,0);
 
-  keyboard = new Piano(5, 5, 1, "sawtooth");
+  keyboard = new Piano(5, 5, 1, "square");
 
   ampImpSoundSlider = createSlider(0, 1, 0.5, 0.1);
   ampImpSoundSlider.position(300, 110);
