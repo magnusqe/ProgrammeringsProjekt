@@ -12,7 +12,7 @@ function setup()
 
   soundVisual = new VisualSound(vineboom, 0, 0 ,0);
 
-  keyboard = new Piano(5, 5, 1, "square");
+  keyboard = new Piano(5, 5, 1, "sine");
 
   ampImpSoundSlider = createSlider(0, 1, 0.5, 0.1);
   ampImpSoundSlider.position(300, 110);
@@ -37,11 +37,8 @@ function draw()
 
   keyboard.VisualKeys(ampPianoSlider.value(), octavePianoSlider.value());
 
-  soundVisual.InputModifications(ampImpSoundSlider.value());
-  soundVisual.StandardSinusVisual();
-  soundVisual.SoundFileVisual();
-  soundVisual.StandardTriangleVisual();
-
+  soundVisual.InputModifications(keyboard.getOsc());
+  soundVisual.OscVisual();
 }
 
 function Playsound()
