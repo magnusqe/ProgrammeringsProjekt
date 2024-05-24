@@ -44,7 +44,7 @@ class Piano
 
   getOsc()
   {
-    return [this.C(), this.D(), this.E(), this.F(), this.G(), this.A(), this.B(), this.Cis(), this.Dis(), this.Fis(), this.Gis(), this.Ais()];
+    return this.keyArray[0];
   }
 
   C()
@@ -62,7 +62,6 @@ class Piano
       this.keyArray[0].amp(0.0, 0.2);
     }
     rect(this.keysX, this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
-    return this.keyArray[0];
   }
 
   D()
@@ -72,7 +71,7 @@ class Piano
     if (keyIsDown(88) === true) 
     {
       fill(240,150,20);
-      this.keyArray[1].freq(17.32 * pow(2, this.octave));
+      this.keyArray[1].freq(18.35 * pow(2, this.octave));
       this.keyArray[1].amp(this.amp, 0.2);
     }   
     else 
@@ -80,7 +79,6 @@ class Piano
       this.keyArray[1].amp(0.0, 0.2);
     }
     rect(this.keysX + this.wkwidth * this.keysSize, this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
-    return this.keyArray[1];
   }
 
   E()
@@ -98,7 +96,6 @@ class Piano
       this.keyArray[2].amp(0.0, 0.2);
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 2), this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
-    return this.keyArray[2];
   }
 
   F()
@@ -116,7 +113,6 @@ class Piano
       this.keyArray[3].amp(0.0, 0.2);
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 3),this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
-    return this.keyArray[3];
   }
 
   G()
@@ -134,7 +130,6 @@ class Piano
       this.keyArray[4].amp(0.0, 0.2);
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 4), this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
-    return this.keyArray[4];
   }
 
   A()
@@ -152,7 +147,6 @@ class Piano
       this.keyArray[5].amp(0.0, 0.2);
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 5), this.keysY,this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
-    return this.keyArray[5];
   }
 
   B()
@@ -170,7 +164,6 @@ class Piano
       this.keyArray[6].amp(0.0, 0.2);
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 6), this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
-    return this.keyArray[6];
   }
 
   Cis()
@@ -188,7 +181,6 @@ class Piano
       this.keyArray[7].amp(0.0, 0.2);
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
-    return this.keyArray[7];
   }
 
   Dis()
@@ -206,7 +198,6 @@ class Piano
       this.keyArray[8].amp(0.0, 0.2);
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
-    return this.keyArray[8];
   }
 
   Fis()
@@ -224,7 +215,6 @@ class Piano
       this.keyArray[9].amp(0.0, 0.2);
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize * 3, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
-    return this.keyArray[9];
   }
 
   Gis()
@@ -242,7 +232,6 @@ class Piano
       this.keyArray[10].amp(0.0, 0.2);
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize * 4, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
-    return this.keyArray[10];
   }
 
   Ais()
@@ -260,6 +249,5 @@ class Piano
       this.keyArray[11].amp(0.0, 0.2);
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize * 5, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
-    return this.keyArray[11];
   }
 }

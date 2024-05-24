@@ -12,7 +12,7 @@ function setup()
 
   soundVisual = new VisualSound(vineboom, 0, 0 ,0);
 
-  keyboard = new Piano(5, 5, 1, "sine");
+  keyboard = new Piano(5, 5, 1, "square");
 
   ampImpSoundSlider = createSlider(0, 1, 0.5, 0.1);
   ampImpSoundSlider.position(300, 110);
@@ -37,7 +37,7 @@ function draw()
 
   keyboard.VisualKeys(ampPianoSlider.value(), octavePianoSlider.value());
 
-  soundVisual.InputModifications(keyboard.getOsc());
+  soundVisual.InputModifications(keyboard.getOsc(), ampPianoSlider.value());
   soundVisual.OscVisual();
 }
 
@@ -47,3 +47,4 @@ function Playsound()
   vineboom.play();
   console.log(vineboom.getLevel());
 }
+

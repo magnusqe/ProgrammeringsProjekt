@@ -1,4 +1,4 @@
-let knob;
+/*let knob;
 let knob2;
 let knob3;
 
@@ -110,4 +110,4 @@ class Knob {
       }
     }
   }
-}
+} */
