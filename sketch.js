@@ -10,9 +10,9 @@ function setup()
 {
   cnv = createCanvas(800, 800);
 
-  soundVisual = new VisualSound(vineboom, 0, 0 ,0);
+  soundVisual = new VisualSound();
 
-  keyboard = new Piano(5, 5, 1, "square");
+  keyboard = new Piano(5, 5, 1, "sawtooth");
 
   ampImpSoundSlider = createSlider(0, 1, 0.5, 0.1);
   ampImpSoundSlider.position(300, 110);
@@ -26,9 +26,7 @@ function setup()
 
   octavePianoSlider = createSlider(0, 8, 5, 1);
   octavePianoSlider.position(500, 110);
-  octavePianoSlider.size(100, 50);
-
-  cnv.mousePressed(Playsound);
+  octavePianoSlider.size(100, 50);  
 }
 
 function draw() 
@@ -40,11 +38,3 @@ function draw()
   soundVisual.InputModifications(keyboard.getOsc(), ampPianoSlider.value());
   soundVisual.OscVisual();
 }
-
-function Playsound()
-{
-  vineboom.setVolume(ampImpSoundSlider.value());
-  vineboom.play();
-  console.log(vineboom.getLevel());
-}
-
