@@ -1,11 +1,5 @@
 let soundVisual, ampImpSoundSlider, ampPianoSlider, musicNote;
 
-function preload()
-{
-  soundFormats('mp3', 'ogg');
-  vineboom = loadSound('assets/vineboom.mp3')
-}
-
 function setup() 
 {
   cnv = createCanvas(800, 800);

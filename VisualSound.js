@@ -70,11 +70,11 @@ class VisualSound
             stroke(0);
             noFill();
             beginShape();
-            let period = 100 / (this.freq * 0.02);
+            let period = 100 / (this.freq * 0.025);
             for (let x = 0; x < 100; x++) 
             {
                 let phase = (x / period) % 1;
-                let y = this.amp * 25 * (2 * phase - 1);
+                let y = this.amp * 15 * (2 * phase - 1);
                 vertex(x, height / 3 - y);
             }
             endShape();
