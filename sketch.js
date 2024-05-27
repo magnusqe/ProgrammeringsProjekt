@@ -1,4 +1,4 @@
-let soundVisual, ampImpSoundSlider, ampPianoSlider, musicNote;
+let soundVisual, ampImpSoundSlider, ampPianoSlider, webMidi;
 
 function setup() 
 {
@@ -6,7 +6,11 @@ function setup()
 
   soundVisual = new VisualSound();
 
+<<<<<<< Updated upstream
   keyboard = new Piano(5, 5, 1, "sine");
+=======
+  keyboard = new Piano(5, 5, 1, "sawtooth");
+>>>>>>> Stashed changes
 
   ampImpSoundSlider = createSlider(0, 1, 0.5, 0.1);
   ampImpSoundSlider.position(300, 110);
