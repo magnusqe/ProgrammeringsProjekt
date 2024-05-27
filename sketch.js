@@ -6,7 +6,7 @@ function setup()
 
   soundVisual = new VisualSound();
 
-  keyboard = new Piano(5, 5, 1, "sawtooth");
+  keyboard = new Piano(5, 5, 1, "sine");
 
   ampImpSoundSlider = createSlider(0, 1, 0.5, 0.1);
   ampImpSoundSlider.position(300, 110);

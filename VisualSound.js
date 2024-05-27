@@ -5,7 +5,7 @@ class VisualSound
 
     }
 
-    InputModifications(osc, amp)
+    InputModifications(osc = null, amp = 0)
     {
         this.osc = osc;
         this.type = this.osc.getType();
