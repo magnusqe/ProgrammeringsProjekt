@@ -12,11 +12,11 @@ class Piano
       this.keysSize = keysSize;
 
       this.at = 0.0; // attack time in seconds
-      this.al = 1.0; // attack level 0.0 to 1.0
+      this.al = 0.0; // attack level 0.0 to 1.0
       this.dt = 0.0; // decay time in seconds
-      this.dl = 0.2; // decay level  0.0 to 1.0
+      this.dl = 0.0; // decay level  0.0 to 1.0
       this.rt = 0.0; // release time in seconds
-      this.rl = 0.2; // release level  0.0 to 1.0
+      this.rl = 0.0; // release level  0.0 to 1.0
 
 
       this.env = new p5.Envelope(this.at, this.al, this.dt, this.dl,this.rt,this.rl);
@@ -32,6 +32,8 @@ class Piano
       for(let i = 0; i < 12; i++)
       {
         this.keyArray.push(new p5.Oscillator(this.waveform));
+        this.keyArray[i].start();
+        this.keyArray[i].amp(this.env);
         this.isPlayingArray.push(false);
       }
     }
@@ -41,10 +43,29 @@ class Piano
       return this.keyArray[0];
     }
 
-    VisualKeys(amp, octave)
+    VisualKeys(amp, octave, noteOctave)
     {
       this.amp = amp;
-      this.octave = octave;
+
+      if(noteOctave != null)
+      {
+        for (let i = 0; i < noteOctave.length; i++) 
+        {
+          let char = noteOctave.charAt(i);
+          if(isNaN(char)) 
+          {
+            this.note += str(char);
+          } 
+          else 
+          {
+            this.octave += int(char);
+          }
+        }
+      }
+      else
+      {
+        this.octave = octave;
+      }
 
       this.C() 
       this.D()
@@ -64,24 +85,23 @@ class Piano
     {
       fill(255,255,255);
         
-      if (keyIsDown(90) === true) 
+      if (keyIsDown(90) === true || this.note === "C") 
       {
         fill(220,100,100);
         if(!this.isPlayingArray[0])
         {
-
-          this.keyArray[0].start();
           this.env.play(this.keyArray[0]);
           this.isPlayingArray[0] = true;
         }
         this.keyArray[0].freq(16.35 * pow(2, this.octave))
       }
-      else 
+      else if(keyIsDown(90) === false || this.note != "C")
       {
-
+        this.env.triggerRelease();
         this.isPlayingArray[0] = false;
+        this.note = "";
+        this.octave = "";
       }
-
 
       rect(this.keysX, this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
     }
@@ -90,20 +110,19 @@ class Piano
     {
       fill(255,255,255);  
 
-      if (keyIsDown(88) === true) 
+      if (keyIsDown(88) === true || this.note === "D") 
       {
         fill(240,150,20);
         if(!this.isPlayingArray[1])
-          {
-            this.keyArray[1].start();
-            this.isPlayingArray[1] = true;
-          }
+        {
+          this.env.play(this.keyArray[1]);
+          this.isPlayingArray[1] = true;
+        }
         this.keyArray[1].freq(18.35 * pow(2, this.octave));
-        this.keyArray[1].amp(this.amp, 0.2);
       }   
-      else 
+      else if(keyIsDown(88) === false || this.note != "D")
       {
-        this.keyArray[1].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[1] = false;
       }
       rect(this.keysX + this.wkwidth * this.keysSize, this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -113,20 +132,19 @@ class Piano
     {
       fill(255,255,255);    
 
-      if (keyIsDown(67) === true) 
+      if (keyIsDown(67) === true || this.note === "E") 
       {
         fill(255,245,0);
         if(!this.isPlayingArray[2])
-          {
-            this.keyArray[2].start();
-            this.isPlayingArray[2] = true;
-          }
+        {
+          this.env.play(this.keyArray[2]);
+          this.isPlayingArray[2] = true;
+        }
         this.keyArray[2].freq(20.60 * pow(2, this.octave));
-        this.keyArray[2].amp(this.amp, 0.2);
       } 
-      else 
+      else if(keyIsDown(67) === false || this.note != "E")
       {
-        this.keyArray[2].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[2] = false;
       }
       rect(this.keysX + (this.wkwidth * this.keysSize * 2), this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -136,20 +154,19 @@ class Piano
     {
       fill(255,255,255);   
 
-      if (keyIsDown(86) === true) 
+      if (keyIsDown(86) === true || this.note === "F") 
       {
         fill(100,230,100);
-        if(!this.isPlayingArray[3])
-          {
-            this.keyArray[3].start();
-            this.isPlayingArray[3] = true;
-          }
+      if(!this.isPlayingArray[3])
+        {
+          this.env.play(this.keyArray[3]);
+          this.isPlayingArray[3] = true;
+        }
         this.keyArray[3].freq(21.83 * pow(2, this.octave));
-        this.keyArray[3].amp(this.amp, 0.2);
       } 
-      else 
+      else if(keyIsDown(86) === false || this.note != "F")
       {
-        this.keyArray[3].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[3] = false;
       }
       rect(this.keysX + (this.wkwidth * this.keysSize * 3),this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -159,20 +176,19 @@ class Piano
     {
       fill(255,255,255);  
 
-      if (keyIsDown(66) === true) 
+      if (keyIsDown(66) === true || this.note === "G") 
       {
         fill(100,100,230);
         if(!this.isPlayingArray[4])
-          {
-            this.keyArray[4].start();
-            this.isPlayingArray[4] = true;
-          }
+        {
+          this.env.play(this.keyArray[4]);
+          this.isPlayingArray[4] = true;
+        }
         this.keyArray[4].freq(24.50 * pow(2, this.octave));
-        this.keyArray[4].amp(this.amp, 0.2);
       } 
-      else 
+      else if(keyIsDown(66) === false || this.note != "G") 
       {
-        this.keyArray[4].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[4] = false;
       }
       rect(this.keysX + (this.wkwidth * this.keysSize * 4), this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -182,20 +198,19 @@ class Piano
     {
       fill(255,255,255);   
 
-      if (keyIsDown(78) === true) 
+      if (keyIsDown(78) === true || this.note === "A") 
       {
         fill(127,0,230);
         if(!this.isPlayingArray[5])
-          {
-            this.keyArray[5].start();
-            this.isPlayingArray[5] = true;
-          }
+        {
+          this.env.play(this.keyArray[5]);;
+          this.isPlayingArray[5] = true;
+        }
         this.keyArray[5].freq(27.50 * pow(2, this.octave));
-        this.keyArray[5].amp(this.amp, 0.2);
       }
-      else 
+      else if(keyIsDown(78) === false || this.note != "A")
       {
-        this.keyArray[5].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[5] = false;
       }
       rect(this.keysX + (this.wkwidth * this.keysSize * 5), this.keysY,this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -205,20 +220,19 @@ class Piano
     {
       fill(255,255,255);  
 
-      if (keyIsDown(77) === true) 
+      if (keyIsDown(77) === true || this.note === "B") 
       {
         fill(180,89,180);
         if(!this.isPlayingArray[6])
-          {
-            this.keyArray[6].start();
-            this.isPlayingArray[6] = true;
-          }
+        {
+          this.env.play(this.keyArray[6]);
+          this.isPlayingArray[6] = true;
+        }
         this.keyArray[6].freq(30.87 * pow(2, this.octave));
-        this.keyArray[6].amp(this.amp, 0.2);
       }
-      else 
+      else if(keyIsDown(77) === false || this.note != "B")
       {
-        this.keyArray[6].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[6] = false;
       }
       rect(this.keysX + (this.wkwidth * this.keysSize * 6), this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -228,20 +242,19 @@ class Piano
     {
       fill(0,0,0);
       
-      if (keyIsDown(83) === true) 
+      if (keyIsDown(83) === true || this.note === "C#") 
       {
         fill(255,100,100);
         if(!this.isPlayingArray[7])
-          {
-            this.keyArray[7].start();
-            this.isPlayingArray[7] = true;
-          }
+        {
+          this.env.play(this.keyArray[7]);
+          this.isPlayingArray[7] = true;
+        }
         this.keyArray[7].freq(17.32 * pow(2, this.octave));
-        this.keyArray[7].amp(this.amp, 0.2);
       }
-      else 
+      else if(keyIsDown(83) === false || this.note != "C#")
       {
-        this.keyArray[7].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[7] = false;
       }
       rect(this.keysX + this.bkwidth * 1.5 * this.keysSize, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
@@ -251,20 +264,19 @@ class Piano
     {
       fill(0,0,0);
 
-      if (keyIsDown(68) === true) 
+      if (keyIsDown(68) === true || this.note === "D#") 
       {
         fill(247,159,27);
         if(!this.isPlayingArray[8])
-          {
-            this.keyArray[8].start();
-            this.isPlayingArray[8] = true;
-          }
+        {
+          this.env.play(this.keyArray[8]);
+          this.isPlayingArray[8] = true;
+        }
         this.keyArray[8].freq(19.45 * pow(2, this.octave));
-        this.keyArray[8].amp(this.amp, 0.2);
       }
-      else 
+      else if(keyIsDown(68) === false || this.note != "D#")
       {
-        this.keyArray[8].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[8] = false;
       }
       rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
@@ -274,20 +286,19 @@ class Piano
     {
       fill(0,0,0);
 
-      if (keyIsDown(71) === true) 
+      if (keyIsDown(71) === true || this.note === "F#") 
       {
         fill(100,255,100);
         if(!this.isPlayingArray[9])
-          {
-            this.keyArray[9].start();
-            this.isPlayingArray[9] = true;
-          }
+        {
+          this.env.play(this.keyArray[9]);
+          this.isPlayingArray[9] = true;
+        }
         this.keyArray[9].freq(23.12 * pow(2, this.octave));
-        this.keyArray[9].amp(this.amp, 0.2);
       }
-      else 
+      else if(keyIsDown(71) === false || this.note != "F#")
       {
-        this.keyArray[9].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[9] = false;
       }
       rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize * 3, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
@@ -297,20 +308,19 @@ class Piano
     {
       fill(0,0,0);
 
-      if (keyIsDown(72) === true) 
+      if (keyIsDown(72) === true || this.note === "G#") 
       {
         fill(100,100,255);
         if(!this.isPlayingArray[10])
-          {
-            this.keyArray[10].start();
-            this.isPlayingArray[10] = true;
-          }
+        {
+          this.env.play(this.keyArray[10]);
+          this.isPlayingArray[10] = true;
+        }
         this.keyArray[10].freq(25.96 * pow(2, this.octave));
-        this.keyArray[10].amp(this.amp, 0.2);
       }
-      else 
+      else if(keyIsDown(72) === false || this.note != "G#")
       {
-        this.keyArray[10].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[10] = false;
       }
       rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize * 4, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
@@ -320,20 +330,19 @@ class Piano
     {
       fill(0,0,0);
 
-      if (keyIsDown(74) === true) 
+      if (keyIsDown(74) === true || this.note === "A#") 
       {
         fill(127,0,255);
         if(!this.isPlayingArray[11])
-          {
-            this.keyArray[11].start();
-            this.isPlayingArray[11] = true;
-          }
+        {
+          this.env.play(this.keyArray[11]);
+          this.isPlayingArray[11] = true;
+        }
         this.keyArray[11].freq(29.14 * pow(2, this.octave));
-        this.keyArray[11].amp(this.amp, 0.2);
       }
-      else 
+      else if(keyIsDown(74) === false || this.note != "A#")
       {
-        this.keyArray[11].stop();
+        this.env.triggerRelease();
         this.isPlayingArray[11] = false;
       }
       rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize * 5, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);

@@ -6,11 +6,10 @@ function setup()
 
   soundVisual = new VisualSound();
 
-<<<<<<< Updated upstream
   keyboard = new Piano(5, 5, 1, "sine");
-=======
-  keyboard = new Piano(5, 5, 1, "sawtooth");
->>>>>>> Stashed changes
+
+  webMidi = new MidiHandler();
+  webMidi.initialize();
 
   ampImpSoundSlider = createSlider(0, 1, 0.5, 0.1);
   ampImpSoundSlider.position(300, 110);
@@ -31,7 +30,7 @@ function draw()
 {
   background(220);
 
-  keyboard.VisualKeys(ampPianoSlider.value(), octavePianoSlider.value());
+  keyboard.VisualKeys(ampPianoSlider.value(), octavePianoSlider.value(), webMidi.noteIdentifier);
 
   soundVisual.InputModifications(keyboard.getOsc(), ampPianoSlider.value());
   soundVisual.OscVisual();
