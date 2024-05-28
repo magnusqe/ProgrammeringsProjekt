@@ -16,24 +16,21 @@ class Piano
     this.dt = 0.2; // decay time in seconds
     this.dl = 0.5; // decay level  0.0 to 1.0
     this.rt = 0.2; // release time in seconds
-    this.rl = 0.5; // release level  0.0 to 1.0
-
-
-    this.env = new p5.Envelope(this.at, this.al, this.dt, this.dl,this.rt,this.rl);
-
+    this.rl = 0.0; // release level  0.0 to 1.0
 
     this.keyArray = [];
+    this.envArray = [];
     this.isPlayingArray = [];
-
-
 
     this.waveform = str(waveform);
 
     for(let i = 0; i < 12; i++)
     {
       this.keyArray.push(new p5.Oscillator(this.waveform));
+      this.envArray.push(new p5.Envelope(this.at, this.al, this.dt, this.dl,this.rt,this.rl));
+      
       this.keyArray[i].start();
-      this.keyArray[i].amp(this.env);
+      this.keyArray[i].amp(this.envArray[i]);
       this.isPlayingArray.push(false);
     }
   }
@@ -46,6 +43,8 @@ class Piano
   VisualKeys(amp, octave, noteOctave = null)
   {
     this.amp = amp;
+    this.note = "";
+    this.octave = "";
 
     if(noteOctave != null)
     {
@@ -90,17 +89,16 @@ class Piano
       fill(220,100,100);
       if(!this.isPlayingArray[0])
       {
-        this.env.play(this.keyArray[0]);
+        this.envArray[0].play(this.keyArray[0]);
+        this.envArray[0].triggerAttack();
         this.isPlayingArray[0] = true;
       }
       this.keyArray[0].freq(16.35 * pow(2, this.octave));
     }
     else if(keyIsDown(90) === false || this.note != "C")
     {
-      this.env.triggerRelease();
+      this.envArray[0].triggerRelease();
       this.isPlayingArray[0] = false;
-      this.note = "";
-      this.octave = "";
     }
 
     rect(this.keysX, this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -115,14 +113,15 @@ class Piano
       fill(240,150,20);
       if(!this.isPlayingArray[1])
       {
-        this.env.play(this.keyArray[1]);
+        this.envArray[1].play(this.keyArray[1]);
+        this.envArray[1].triggerAttack();
         this.isPlayingArray[1] = true;
       }
       this.keyArray[1].freq(18.35 * pow(2, this.octave));
     }   
     else if(keyIsDown(88) === false || this.note != "D")
     {
-      this.env.triggerRelease();
+      this.envArray[1].triggerRelease();
       this.isPlayingArray[1] = false;
     }
     rect(this.keysX + this.wkwidth * this.keysSize, this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -137,14 +136,15 @@ class Piano
       fill(255,245,0);
       if(!this.isPlayingArray[2])
       {
-        this.env.play(this.keyArray[2]);
+        this.envArray[2].play(this.keyArray[2]);
+        this.envArray[2].triggerAttack();
         this.isPlayingArray[2] = true;
       }
       this.keyArray[2].freq(20.60 * pow(2, this.octave));
     } 
     else if(keyIsDown(67) === false || this.note != "E")
     {
-      this.env.triggerRelease();
+      this.envArray[2].triggerRelease();
       this.isPlayingArray[2] = false;
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 2), this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -159,14 +159,15 @@ class Piano
       fill(100,230,100);
     if(!this.isPlayingArray[3])
       {
-        this.env.play(this.keyArray[3]);
+        this.envArray[3].play(this.keyArray[3]);
+        this.envArray[3].triggerAttack();
         this.isPlayingArray[3] = true;
       }
       this.keyArray[3].freq(21.83 * pow(2, this.octave));
     } 
     else if(keyIsDown(86) === false || this.note != "F")
     {
-      this.env.triggerRelease();
+      this.envArray[3].triggerRelease();
       this.isPlayingArray[3] = false;
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 3),this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -181,14 +182,15 @@ class Piano
       fill(100,100,230);
       if(!this.isPlayingArray[4])
       {
-        this.env.play(this.keyArray[4]);
+        this.envArray[4].play(this.keyArray[4]);
+        this.envArray[4].triggerAttack();
         this.isPlayingArray[4] = true;
       }
       this.keyArray[4].freq(24.50 * pow(2, this.octave));
     } 
     else if(keyIsDown(66) === false || this.note != "G") 
     {
-      this.env.triggerRelease();
+      this.envArray[4].triggerRelease();
       this.isPlayingArray[4] = false;
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 4), this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -203,14 +205,15 @@ class Piano
       fill(127,0,230);
       if(!this.isPlayingArray[5])
       {
-        this.env.play(this.keyArray[5]);;
+        this.envArray[5].play(this.keyArray[5]);
+        this.envArray[5].triggerAttack();
         this.isPlayingArray[5] = true;
       }
       this.keyArray[5].freq(27.50 * pow(2, this.octave));
     }
     else if(keyIsDown(78) === false || this.note != "A")
     {
-      this.env.triggerRelease();
+      this.envArray[5].triggerRelease();
       this.isPlayingArray[5] = false;
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 5), this.keysY,this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -225,14 +228,15 @@ class Piano
       fill(180,89,180);
       if(!this.isPlayingArray[6])
       {
-        this.env.play(this.keyArray[6]);
+        this.envArray[6].play(this.keyArray[6]);
+        this.envArray[6].triggerAttack();
         this.isPlayingArray[6] = true;
       }
       this.keyArray[6].freq(30.87 * pow(2, this.octave));
     }
     else if(keyIsDown(77) === false || this.note != "B")
     {
-      this.env.triggerRelease();
+      this.envArray[6].triggerRelease();
       this.isPlayingArray[6] = false;
     }
     rect(this.keysX + (this.wkwidth * this.keysSize * 6), this.keysY, this.wkwidth * this.keysSize, this.wkheight * this.keysSize);
@@ -247,14 +251,15 @@ class Piano
       fill(255,100,100);
       if(!this.isPlayingArray[7])
       {
-        this.env.play(this.keyArray[7]);
+        this.envArray[7].play(this.keyArray[7]);
+        this.envArray[7].triggerAttack();
         this.isPlayingArray[7] = true;
       }
       this.keyArray[7].freq(17.32 * pow(2, this.octave));
     }
     else if(keyIsDown(83) === false || this.note != "C#")
     {
-      this.env.triggerRelease();
+      this.envArray[7].triggerRelease();
       this.isPlayingArray[7] = false;
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
@@ -269,14 +274,15 @@ class Piano
       fill(247,159,27);
       if(!this.isPlayingArray[8])
       {
-        this.env.play(this.keyArray[8]);
+        this.envArray[8].play(this.keyArray[8]);
+        this.envArray[8].triggerAttack();
         this.isPlayingArray[8] = true;
       }
       this.keyArray[8].freq(19.45 * pow(2, this.octave));
     }
     else if(keyIsDown(68) === false || this.note != "D#")
     {
-      this.env.triggerRelease();
+      this.envArray[8].triggerRelease();
       this.isPlayingArray[8] = false;
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
@@ -291,14 +297,15 @@ class Piano
       fill(100,255,100);
       if(!this.isPlayingArray[9])
       {
-        this.env.play(this.keyArray[9]);
+        this.envArray[9].play(this.keyArray[9]);
+        this.envArray[9].triggerAttack();
         this.isPlayingArray[9] = true;
       }
       this.keyArray[9].freq(23.12 * pow(2, this.octave));
     }
     else if(keyIsDown(71) === false || this.note != "F#")
     {
-      this.env.triggerRelease();
+      this.envArray[9].triggerRelease();
       this.isPlayingArray[9] = false;
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize * 3, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
@@ -313,14 +320,15 @@ class Piano
       fill(100,100,255);
       if(!this.isPlayingArray[10])
       {
-        this.env.play(this.keyArray[10]);
+        this.envArray[10].play(this.keyArray[10]);
+        this.envArray[10].triggerAttack();
         this.isPlayingArray[10] = true;
       }
       this.keyArray[10].freq(25.96 * pow(2, this.octave));
     }
     else if(keyIsDown(72) === false || this.note != "G#")
     {
-      this.env.triggerRelease();
+      this.envArray[10].triggerRelease();
       this.isPlayingArray[10] = false;
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize * 4, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
@@ -335,14 +343,15 @@ class Piano
       fill(127,0,255);
       if(!this.isPlayingArray[11])
       {
-        this.env.play(this.keyArray[11]);
+        this.envArray[11].play(this.keyArray[11]);
+        this.envArray[11].triggerAttack();
         this.isPlayingArray[11] = true;
       }
       this.keyArray[11].freq(29.14 * pow(2, this.octave));
     }
     else if(keyIsDown(74) === false || this.note != "A#")
     {
-      this.env.triggerRelease();
+      this.envArray[11].triggerRelease();
       this.isPlayingArray[11] = false;
     }
     rect(this.keysX + this.bkwidth * 1.5 * this.keysSize + this.wkwidth * this.keysSize * 5, this.keysY, this.bkwidth * this.keysSize, this.bkheight * this.keysSize);
