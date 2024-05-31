@@ -19,13 +19,13 @@ function setup()
   ampPianoSlider.style('transform', 'rotate(270deg)');
 
   octavePianoSlider = createSlider(0, 8, 5, 1);
-  octavePianoSlider.position(500, 110);
+  octavePianoSlider.position(600, 450);
   octavePianoSlider.size(100, 50);  
 
-  knobAttack = new Knob(160, 180, 30, "attack",20);
+  knobAttack = new Knob(160, 180, 30, "Attack",20);
   knobDecay = new Knob(300, 180, 30,"Decay",20);
-  knobSustain = new Knob(230, 280, 30,"Sustain", 20);
-  knobRelease = new Knob(230, 380, 30,"Release", 20);
+  knobAttackTime = new Knob(230, 280, 30,"AttackTime", 20);
+  knobDecayTime = new Knob(230, 380, 30,"DecayTime", 20);
 }
 
 function draw() 
@@ -41,26 +41,26 @@ function draw()
   knobAttack.display();
   knobDecay.update();
   knobDecay.display();
-  knobSustain.update();
-  knobSustain.display();
-  knobRelease.update();
-  knobRelease.display();
+  knobAttackTime.update();
+  knobAttackTime.display();
+  knobDecayTime.update();
+  knobDecayTime.display();
 
 
   text("Apmilitude", 400 + 50, 110 - 25);
-  text("Octave", 500 + 50, 110 + 10);
+  text("Octave", 600 + 50, 450 + 10);
 }
 
 function mousePressed() {
   knobAttack.press(mouseX, mouseY);
   knobDecay.press(mouseX, mouseY);
-  knobSustain.press(mouseX, mouseY);
-  knobRelease.press(mouseX, mouseY);
+  knobAttackTime.press(mouseX, mouseY);
+  knobDecayTime.press(mouseX, mouseY);
 }
 
 function mouseReleased() {
   knobAttack.release();
   knobDecay.release();
-  knobSustain.release();
-  knobRelease.release();
+  knobAttackTime.release();
+  knobDecayTime.release();
 }
