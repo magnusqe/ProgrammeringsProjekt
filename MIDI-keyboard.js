@@ -22,12 +22,12 @@ class MidiHandler
       this.myInput.addListener("noteon", e => {
         this.noteIdentifier = e.note.identifier;
         this.velocity = e.velocity;
-        this.noteOff = false;
-        //console.log(`Note On - Note: ${this.noteIdentifier}, Velocity: ${this.velocity}`);
+        console.log(`Note On - Note: ${this.noteIdentifier}, Velocity: ${this.velocity}`);
       });
 
       this.myInput.addListener("noteoff", e => {
-        this.noteOff = true;
+        this.noteIdentifier = "";
+        console.log(`Note Off - Note: ${this.noteIdentifier}, Velocity: ${this.velocity}`);
       });
 
       this.myInput.addListener("controlchange", e => {

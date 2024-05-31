@@ -12,7 +12,7 @@ class Piano
     this.keysSize = keysSize;
 
     this.at = 0.2; // attack time in seconds
-    this.al = 0.7; // attack level 0.0 to 1.0
+    this.al = 0.5; // attack level 0.0 to 1.0
     this.dt = 0.2; // decay time in seconds
     this.dl = 0.5; // decay level  0.0 to 1.0
     this.rt = 0.2; // release time in seconds
@@ -44,7 +44,7 @@ class Piano
   {
     this.amp = amp;
     this.note = "";
-    this.octave = "";
+    this.octave = octave;
 
     if(noteOctave != null)
     {
@@ -60,10 +60,6 @@ class Piano
           this.octave += int(char);
         }
       }
-    }
-    else
-    {
-      this.octave = octave;
     }
 
     this.C() 
