@@ -18,10 +18,16 @@ class MidiHandler
     this.myInput = WebMidi.getInputByName("APC Key 25");
 
     if (this.myInput) 
-        {
+    {
       this.myInput.addListener("noteon", e => {
         this.noteIdentifier = e.note.identifier;
         this.velocity = e.velocity;
+        this.noteOff = false;
+        //console.log(`Note On - Note: ${this.noteIdentifier}, Velocity: ${this.velocity}`);
+      });
+
+      this.myInput.addListener("noteoff", e => {
+        this.noteOff = true;
       });
 
       this.myInput.addListener("controlchange", e => {
