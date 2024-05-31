@@ -22,10 +22,10 @@ function setup()
   octavePianoSlider.position(600, 450);
   octavePianoSlider.size(100, 50);  
 
-  knobAttack = new Knob(160, 180, 30, "Attack",20);
-  knobDecay = new Knob(300, 180, 30,"Decay",20);
-  knobAttackTime = new Knob(230, 280, 30,"AttackTime", 20);
-  knobDecayTime = new Knob(230, 380, 30,"DecayTime", 20);
+  knobAttack = new Knob(200, 390, 30, "Attack",20);
+  knobDecay = new Knob(313.33, 390, 30,"Decay",20);
+  knobAttackTime = new Knob(426.66, 390, 30,"AttackTime", 20);
+  knobDecayTime = new Knob(540, 390, 30,"DecayTime", 20);
 }
 
 function draw() 
