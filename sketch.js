@@ -13,12 +13,6 @@ function setup()
   webMidi = new MidiHandler();
   webMidi.initialize();
 
-  ampImpSoundSlider = createSlider(0, 1, 0.5, 0.1);
-  ampImpSoundSlider.position(300, 110);
-  ampImpSoundSlider.size(100, 50);
-  ampImpSoundSlider.style('transform', 'rotate(270deg)');
-
-
   ampPianoSlider = createSlider(0, 1, 0.5, 0.1);
   ampPianoSlider.position(400, 110);
   ampPianoSlider.size(100, 50);
@@ -53,8 +47,7 @@ function draw()
   knobRelease.display();
 
 
-  text("IDK", 300 + 50, 110 - 25);
-  text("Apmlitude", 400 + 50, 110 - 25);
+  text("Apmilitude", 400 + 50, 110 - 25);
   text("Octave", 500 + 50, 110 + 10);
 }
 
