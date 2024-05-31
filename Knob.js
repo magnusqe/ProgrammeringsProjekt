@@ -36,7 +36,9 @@ class Knob {
     strokeWeight(2);
     translate(this.x, this.y);
     rotate(this.angle);
+    fill(70);
     circle(0, 0, this.r * 2);
+    stroke(200);
     line(0, 0, this.r, 0);
     pop();
     fill(0);

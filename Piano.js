@@ -11,9 +11,9 @@ class Piano
     this.keysY = keysY;
     this.keysSize = keysSize;
 
-    this.at = 0.2; // attack time in seconds
-    this.al = 0.5; // attack level 0.0 to 1.0
-    this.dt = 0.2; // decay time in seconds
+    this.at = int(knobAttackTime.calcAngle); // attack time in seconds
+    this.al = int(knobAttack.calcAngle/10); // attack level 0.0 to 1.0
+    this.dt = 0.0; // decay time in seconds
     this.dl = 0.5; // decay level  0.0 to 1.0
     this.rt = 0.2; // release time in seconds
     this.rl = 0.0; // release level  0.0 to 1.0
@@ -33,6 +33,22 @@ class Piano
       this.keyArray[i].amp(this.envArray[i]);
       this.isPlayingArray.push(false);
     }
+  }
+
+  updateADSR()
+  {
+    this.at = int(knobAttackTime.calcAngle/5); // attack time in seconds
+    this.al = int(knobAttack.calcAngle/10); // attack level 0.0 to 1.0
+    this.dt = int(knobDecayTime.calcAngle/5); // decay time in seconds
+    this.dl = int(knobDecay.calcAngle/10);; // decay level  0.0 to 1.0
+
+    for(let i = 0; i < this.keyArray.length; i++)
+    {
+      this.keyArray[i].setADSR(this.at, this.dt );
+      this.keyArray[i].setRange(this.al, this.dl );
+    }
+ 
+
   }
 
   getOsc()
