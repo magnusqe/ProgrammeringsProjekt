@@ -4,6 +4,12 @@ let soundVisual, ampImpSoundSlider, ampPianoSlider, webMidi;
 
 function setup() 
 {
+  
+  knobAttack = new Knob(200, 390, 30, "Attack",20);
+  knobDecay = new Knob(313.33, 390, 30,"Decay",20);
+  knobAttackTime = new Knob(426.66, 390, 30,"AttackTime", 20);
+  knobDecayTime = new Knob(540, 390, 30,"DecayTime", 20);
+
   cnv = createCanvas(800, 800);
 
   soundVisual = new VisualSound();
@@ -22,16 +28,15 @@ function setup()
   octavePianoSlider.position(600, 450);
   octavePianoSlider.size(100, 50);  
 
-  knobAttack = new Knob(200, 390, 30, "Attack",20);
-  knobDecay = new Knob(313.33, 390, 30,"Decay",20);
-  knobAttackTime = new Knob(426.66, 390, 30,"AttackTime", 20);
-  knobDecayTime = new Knob(540, 390, 30,"DecayTime", 20);
+
 }
 
 function draw() 
 {
   background(220);
 
+  Piano.updateADSR;
+  
   keyboard.VisualKeys(ampPianoSlider.value(), octavePianoSlider.value(), webMidi.noteIdentifier);
 
   soundVisual.InputModifications(keyboard.getOsc(), ampPianoSlider.value());
