@@ -1,5 +1,7 @@
-class Knob {
-  constructor(x, y, r, knobName, textsize) {
+class Knob 
+{
+  constructor(x, y, r, knobName, textsize) 
+  {
     this.x = x;
     this.y = y;
     this.r = r;
@@ -8,10 +10,19 @@ class Knob {
     this.dragging = false;
     this.knobName = knobName;
     this.textsize = textsize;
+    this.calcAngle = null;
+    this.divide = 10;
+
+    if(this.knobName == "AttackTime" || this.knobName == "DecayTime")
+    {
+      this.divide = 2;
+    }
   }
 
-  update() {
-    if (this.dragging) {
+  update() 
+  {
+    if(this.dragging) 
+    {
       let dx = mouseX - this.x;
       let dy = mouseY - this.y;
       let mouseAngle = atan2(dy, dx);
@@ -19,15 +30,18 @@ class Knob {
 
       // Constrain the angle to be within the range of -PI to PI
       this.angle = constrain(this.angle, -PI, PI);
-
-
+      colorMode(HSB);
     }
   }
 
-  display() {
-    if (this.dragging) {
+  display() 
+  {
+    if(this.dragging) 
+    {
       fill(175);
-    } else {
+    } 
+    else 
+    {
       fill(255);
     }
 
@@ -36,56 +50,55 @@ class Knob {
     strokeWeight(2);
     translate(this.x, this.y);
     rotate(this.angle);
-    fill(70);
+    fill(int(this.calcAngle) * 36, 80, 100);
     circle(0, 0, this.r * 2);
     stroke(200);
     line(0, 0, this.r, 0);
     pop();
     fill(0);
 
-
-    // Map the knob's range to a value between 0 and 10
-    let calcAngle = map(this.angle, -PI, PI, 0, 11);
-    calcAngle = max(calcAngle, 0); // Ensure calcAngle is not negative
+    this.calcAngle = map(this.angle, -PI, PI, 0, 11);
+    this.calcAngle = max(this.calcAngle, 0); // Ensure calcAngle is not negative
 
     textAlign(CENTER);
     textSize(this.textsize);
-    text(nf(int(calcAngle)), this.x, this.y + this.r + this.textsize);  // Display calcAngle with 2 decimal places
-    text(this.knobName, this.x, this.y - this.r - this.textsize/4);  // Display name of knob
-      if (int(this.calcAngle) >> 10)
+    text(round(int((this.calcAngle)) / this.divide, 1), this.x, this.y + this.r + this.textsize);
+    text(this.knobName, this.x, this.y - this.r - this.textsize / 4);
+    if(int(this.calcAngle) >> 10)
     {
-        this.calcAngle = 10;
+      this.calcAngle = 10;
     }
-
   }
 
-
-
-  press(mx, my) {
-    // Did I click on the knob?
-    if (dist(mx, my, this.x, this.y) < this.r) {
+  press(mx, my) 
+  {
+    // Check if mouse is over this knob
+    if (dist(mx, my, this.x, this.y) < this.r)
+    {
       this.dragging = true;
-      // If so, keep track of the relative location of the click
       let dx = mx - this.x;
       let dy = my - this.y;
       this.offsetAngle = atan2(dy, dx) - this.angle;
     }
   }
 
-  release() {
-    // Stop dragging
+  release() 
+  {
     this.dragging = false;
   }
 
-  ensureUniqueValue() {
+  ensureUniqueValue() // Function helps the knobs from overlapping, since it became a problem
+  {
     let knobs = [knob, knob2, knob3];
-    for (let i = 0; i < knobs.length; i++) {
-      if (knobs[i] !== this) {
-        let otherCalcAngle = map(knobs[i].angle, -PI, PI, 0,11);
-        let thisCalcAngle = map(this.angle, -PI, PI, 0,11);
-        if (int(thisCalcAngle) === int(otherCalcAngle)) {
-
-          this.angle = constrain(this.angle, -PI, PI); // Ensure it remains within bounds
+    for(let i = 0; i < knobs.length; i++) 
+    {
+      if(knobs[i] !== this) 
+      {
+        this.othercalcAngle = map(knobs[i].angle, -PI, PI, 0,11);
+        this.calcAngle = map(this.angle, -PI, PI, 0,11);
+        if(int(this.calcAngle) === int(this.othercalcAngle)) 
+        {
+          this.angle = constrain(this.angle, -PI, PI);
         }
       }
     }

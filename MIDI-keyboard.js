@@ -17,7 +17,7 @@ class MidiHandler
   {
     this.myInput = WebMidi.getInputByName("APC Key 25");
 
-    if (this.myInput) 
+    if(this.myInput) 
     {
       this.myInput.addListener("noteon", e => {
         this.noteIdentifier = e.note.identifier;

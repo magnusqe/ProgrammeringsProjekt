@@ -1,72 +1,107 @@
-let soundVisual, ampImpSoundSlider, ampPianoSlider, webMidi;
-
-
+let soundVisual, ampImpSoundSlider, ampPianoSlider, webMidi, knobName, octName, octave = 4, knobArray = [], octArray = [], ampDistance = 0;
 
 function setup() 
 {
-  
-  knobAttack = new Knob(200, 390, 30, "Attack",20);
-  knobDecay = new Knob(313.33, 390, 30,"Decay",20);
-  knobAttackTime = new Knob(426.66, 390, 30,"AttackTime", 20);
-  knobDecayTime = new Knob(540, 390, 30,"DecayTime", 20);
-
   cnv = createCanvas(800, 800);
+
+  for(let i = 1; i <= 5; i++)
+  {
+    if(i == 1)
+    {
+      knobName = "Attack";
+    }
+    else if(i == 2)
+    {
+      knobName = "Decay";
+    }
+    else if(i == 3)
+    {
+      knobName = "AttackTime";
+    }
+    else if(i == 4)
+    {
+      knobName = "DecayTime";
+    }
+    else if(i == 5)
+    {
+      knobName = "Amplitude";
+      ampDistance = 56;
+    }
+    knobArray.push(new Knob(155 + 50 * i + 60 * (i - 1) + ampDistance, 390, 30, knobName, 20));
+  }
+
+  for(let i = 1; i <= 2; i++)
+  {
+    if(i == 1)
+    {
+      octName = "Oct Down";
+    }
+    if(i == 2)
+    {
+      octName = "Oct Up";
+    }
+    let button = createButton(octName);
+    button.size(50, 40);
+    button.position(600 + 50 * i, 470);
+    button.mousePressed(() => buttonPressed(i));
+    octArray.push(button);
+  }
 
   soundVisual = new VisualSound();
 
-  keyboard = new Piano(180 , 450, 2.5, "sine");
+  keyboard = new Piano(180, 450, 2.5, "sine");
 
   webMidi = new MidiHandler();
   webMidi.initialize();
-
-  ampPianoSlider = createSlider(0, 1, 0.5, 0.1);
-  ampPianoSlider.position(400, 110);
-  ampPianoSlider.size(100, 50);
-  ampPianoSlider.style('transform', 'rotate(270deg)');
-
-  octavePianoSlider = createSlider(0, 8, 5, 1);
-  octavePianoSlider.position(600, 450);
-  octavePianoSlider.size(100, 50);  
-
-
 }
 
 function draw() 
 {
   background(220);
+  colorMode(RGB);
 
-  Piano.updateADSR;
-  
-  keyboard.VisualKeys(ampPianoSlider.value(), octavePianoSlider.value(), webMidi.noteIdentifier);
+  keyboard.updateADSR();
+  keyboard.VisualKeys(octave, webMidi.velocity, webMidi.noteIdentifier);
 
-  soundVisual.InputModifications(keyboard.getOsc(), ampPianoSlider.value());
+  soundVisual.InputModifications(keyboard.getOsc(), webMidi.velocity, knobArray[4].calcAngle);
   soundVisual.OscVisual();
 
-  knobAttack.update();
-  knobAttack.display();
-  knobDecay.update();
-  knobDecay.display();
-  knobAttackTime.update();
-  knobAttackTime.display();
-  knobDecayTime.update();
-  knobDecayTime.display();
+  for(let i = 0; i < knobArray.length; i++)
+  {
+    colorMode(HSB);
+    knobArray[i].update();
+    knobArray[i].display();
+  }
 
-
-  text("Apmilitude", 400 + 50, 110 - 25);
-  text("Octave", 600 + 50, 450 + 10);
+  text("octave : " + octave, 700, 530);
 }
 
-function mousePressed() {
-  knobAttack.press(mouseX, mouseY);
-  knobDecay.press(mouseX, mouseY);
-  knobAttackTime.press(mouseX, mouseY);
-  knobDecayTime.press(mouseX, mouseY);
+function mousePressed() 
+{
+  for(let i = 0; i < knobArray.length; i++)
+  {
+    knobArray[i].press(mouseX, mouseY);
+  }
 }
 
 
-function mouseReleased() {
-  knobAttack.release();
-  knobDecay.release();
-  knobAttackTime.release();
-  knobDecayTime.release();
+function mouseReleased() 
+{
+  for(let i = 0; i < knobArray.length; i++)
+  {
+    knobArray[i].release();
+  }
+}
+
+function buttonPressed(index)
+{
+  if(index == 1)
+  {
+    octave -= 1;
+  }
+  if(index == 2)
+  {
+    octave += 1;
+  }
+  octave = constrain(octave, 0, 8)
 }

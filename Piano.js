@@ -1,7 +1,9 @@
 class Piano
 {
-  constructor (keysX, keysY, keysSize, waveform)
+  constructor(keysX, keysY, keysSize, waveform)
   {
+    this.amp = 1;
+    this.number = 0;
 
     this.bkwidth  = 11;
     this.bkheight = 60;
@@ -11,10 +13,10 @@ class Piano
     this.keysY = keysY;
     this.keysSize = keysSize;
 
-    this.at = int(knobAttackTime.calcAngle); // attack time in seconds
-    this.al = int(knobAttack.calcAngle/10); // attack level 0.0 to 1.0
-    this.dt = 0.0; // decay time in seconds
-    this.dl = 0.5; // decay level  0.0 to 1.0
+    this.al = int(knobArray[0].calcAngle) / 10; // attack time in seconds
+    this.dl = int(knobArray[1].calcAngle) / 10; // attack level 0.0 to 1.0
+    this.at = int(knobArray[2].calcAngle / 2); // decay time in seconds
+    this.dt = int(knobArray[3].calcAngle / 2); // decay level  0.0 to 1.0
     this.rt = 0.2; // release time in seconds
     this.rl = 0.0; // release level  0.0 to 1.0
 
@@ -27,7 +29,7 @@ class Piano
     for(let i = 0; i < 12; i++)
     {
       this.keyArray.push(new p5.Oscillator(this.waveform));
-      this.envArray.push(new p5.Envelope(this.at, this.al, this.dt, this.dl,this.rt,this.rl));
+      this.envArray.push(new p5.Envelope(this.at, this.al, this.dt, this.dl, this.rt, this.rl));
       
       this.keyArray[i].start();
       this.keyArray[i].amp(this.envArray[i]);
@@ -37,34 +39,31 @@ class Piano
 
   updateADSR()
   {
-    this.at = int(knobAttackTime.calcAngle/5); // attack time in seconds
-    this.al = int(knobAttack.calcAngle/10); // attack level 0.0 to 1.0
-    this.dt = int(knobDecayTime.calcAngle/5); // decay time in seconds
-    this.dl = int(knobDecay.calcAngle/10);; // decay level  0.0 to 1.0
+    this.al = (int(knobArray[0].calcAngle) / 10) * this.amp;
+    this.dl = (int(knobArray[1].calcAngle) / 10) * this.amp;
+    this.at = int(knobArray[2].calcAngle / 2);
+    this.dt = int(knobArray[3].calcAngle / 2);
 
     for(let i = 0; i < this.keyArray.length; i++)
     {
-      this.keyArray[i].setADSR(this.at, this.dt );
-      this.keyArray[i].setRange(this.al, this.dl );
+      this.envArray[i].set(this.at, this.al, this.dt, this.dl, this.rt, this.rl)
     }
- 
-
   }
 
   getOsc()
   {
-    return this.keyArray[0];
+    return this.keyArray[this.number];
   }
 
-  VisualKeys(amp, octave, noteOctave = null)
+  VisualKeys(octave, velocity, noteOctave = null)
   {
-    this.amp = amp;
+    this.amp = 1;
     this.note = "";
     this.octave = octave;
 
     if(noteOctave != null)
     {
-      for (let i = 0; i < noteOctave.length; i++) 
+      for(let i = 0; i < noteOctave.length; i++) 
       {
         let char = noteOctave.charAt(i);
         if(isNaN(char)) 
@@ -73,10 +72,13 @@ class Piano
         } 
         else 
         {
-          this.octave += int(char);
+          this.octave = int(char);
         }
       }
+      this.amp = velocity;
     }
+
+    this.updateADSR();
 
     this.C() 
     this.D()
@@ -106,6 +108,7 @@ class Piano
         this.isPlayingArray[0] = true;
       }
       this.keyArray[0].freq(16.35 * pow(2, this.octave));
+      this.number = 0;
     }
     else if(keyIsDown(90) === false || this.note != "C")
     {
@@ -130,6 +133,7 @@ class Piano
         this.isPlayingArray[1] = true;
       }
       this.keyArray[1].freq(18.35 * pow(2, this.octave));
+      this.number = 1;
     }   
     else if(keyIsDown(88) === false || webMidi.noteOff == true)
     {
@@ -153,6 +157,7 @@ class Piano
         this.isPlayingArray[2] = true;
       }
       this.keyArray[2].freq(20.60 * pow(2, this.octave));
+      this.number = 2;
     } 
     else if(keyIsDown(67) === false || this.note != "E")
     {
@@ -176,6 +181,7 @@ class Piano
         this.isPlayingArray[3] = true;
       }
       this.keyArray[3].freq(21.83 * pow(2, this.octave));
+      this.number = 3;
     } 
     else if(keyIsDown(86) === false || this.note != "F")
     {
@@ -199,6 +205,7 @@ class Piano
         this.isPlayingArray[4] = true;
       }
       this.keyArray[4].freq(24.50 * pow(2, this.octave));
+      this.number = 4;
     } 
     else if(keyIsDown(66) === false || this.note != "G") 
     {
@@ -222,6 +229,7 @@ class Piano
         this.isPlayingArray[5] = true;
       }
       this.keyArray[5].freq(27.50 * pow(2, this.octave));
+      this.number = 5;
     }
     else if(keyIsDown(78) === false || this.note != "A")
     {
@@ -245,6 +253,7 @@ class Piano
         this.isPlayingArray[6] = true;
       }
       this.keyArray[6].freq(30.87 * pow(2, this.octave));
+      this.number = 6;
     }
     else if(keyIsDown(77) === false || this.note != "B")
     {
@@ -268,6 +277,7 @@ class Piano
         this.isPlayingArray[7] = true;
       }
       this.keyArray[7].freq(17.32 * pow(2, this.octave));
+      this.number = 7;
     }
     else if(keyIsDown(83) === false || this.note != "C#")
     {
@@ -291,6 +301,7 @@ class Piano
         this.isPlayingArray[8] = true;
       }
       this.keyArray[8].freq(19.45 * pow(2, this.octave));
+      this.number = 8;
     }
     else if(keyIsDown(68) === false || this.note != "D#")
     {
@@ -314,6 +325,7 @@ class Piano
         this.isPlayingArray[9] = true;
       }
       this.keyArray[9].freq(23.12 * pow(2, this.octave));
+      this.number = 9;
     }
     else if(keyIsDown(71) === false || this.note != "F#")
     {
@@ -337,6 +349,7 @@ class Piano
         this.isPlayingArray[10] = true;
       }
       this.keyArray[10].freq(25.96 * pow(2, this.octave));
+      this.number = 10;
     }
     else if(keyIsDown(72) === false || this.note != "G#")
     {
@@ -360,6 +373,7 @@ class Piano
         this.isPlayingArray[11] = true;
       }
       this.keyArray[11].freq(29.14 * pow(2, this.octave));
+      this.number = 11;
     }
     else if(keyIsDown(74) === false || this.note != "A#")
     {
